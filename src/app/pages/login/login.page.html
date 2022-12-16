@@ -1,0 +1,146 @@
+<ion-content>
+  <div class="login-section ion-padding" *ngIf="!usuario">
+    <form [formGroup]="formulario" (ngSubmit)="submit()">   
+    <div class="heading ion-padding">
+        <h2>Bienvenido a la aplicacion</h2>
+        <p>Iniciar Sesion</p>
+      </div>
+      <div class="login-form ion-padding">
+        <div class="form-input">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input  formControlName="username" type="text" placeholder="Ingrese un usuario valido"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formulario.get('username').touched">{{getError('username')}}</small>
+        </div>
+        <div class="form-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-item>
+            <ion-label  position="floating">Contraseña</ion-label>
+            <ion-input formControlName="clave" type="password" placeholder="Ingrese una clave segura"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formulario.get('clave').touched">{{getError('clave')}}</small>
+        </div>
+        <div class="action-buttons ion-padding">
+          <ion-button type="submit"  class="login-button" [disabled]="formulario.invalid">Ingresar</ion-button>
+          <ion-button  class="signup-button" routerLink="/tabs/crearcuenta" fill="outline">Registrarse</ion-button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!--//////////////////////////////////////////////pantalla de usuario autenticado///////////////////////////////////////////////////////////////-->
+<svg *ngIf="usuario" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3ec783" fill-opacity="1" d="M0,192L120,202.7C240,213,480,235,720,229.3C960,224,1200,192,1320,176L1440,160L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path></svg>
+<ion-grid *ngIf="usuario" fixed>
+  <ion-row>
+    <ion-col class="ion-text-center">
+      <div class="Perfil-RS">
+        <ion-avatar style="margin:auto; width: 100px; height: 100px;" class="animated fadeIn">
+          <img [src]="usuario.foto" appImagen alt="">
+        </ion-avatar>
+
+        <p class="text-grey">
+          {{usuario.login}}
+        </p>
+        <h3>
+          {{usuario.nombre}} {{usuario.ap}} {{usuario.am}}
+        </h3>
+        <p>
+          <ion-button (click)="salir()">
+            Desconectarse
+          </ion-button>
+          <ion-button (click)="miveterinaria(usuario.codper)" color="secondary" *ngIf="rolInfo.codrol==2">
+            mi veterinaria
+          </ion-button>
+          
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>  
+  <ion-row>
+    <ion-col>
+      <ion-item lines="none">
+        <ion-label>ACTIVAR EDICION</ion-label>
+        <ion-checkbox slot="end" [checked]="edicion" (ionChange)="activarEdicion($event)"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Codigo</ion-label>
+        <ion-input value="{{codper}}" readonly></ion-input>
+      </ion-item>
+      <ion-item *ngIf="rolInfo">
+        <ion-label position="floating">Tipo</ion-label>
+        <ion-input [value]="rolInfo.nombre" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input [value]="usuario.login" readonly></ion-input>
+      </ion-item>
+      <form [formGroup]="formularioEdicion" *ngIf="codper">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre" [readonly]="!edicion"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('nombre').touched">{{getErrorEditar('nombre')}}</small>
+          <ion-item>
+            <ion-label position="floating">apellido Paterno</ion-label>
+            <ion-input formControlName="ap" [readonly]="!edicion"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('ap').touched">{{getErrorEditar('ap')}}</small>
+          <ion-item>
+            <ion-label position="floating">Apellido Materno</ion-label>
+            <ion-input formControlName="am" [readonly]="!edicion"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('am').touched">{{getErrorEditar('am')}}</small>
+          <ion-item>
+            <ion-label>Fecha de Nacimiento</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY"
+                          formControlName="fechanac"
+                          monthShortNames="enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, deciembre"
+                          [readonly]="!edicion">
+            </ion-datetime>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('fechanac').touched">{{getErrorEditar('fechanac')}}</small>
+          <ion-item>
+            <ion-label position="floating">Telefono/Celular</ion-label>
+            <ion-input formControlName="celular"  [readonly]="!edicion"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('celular').touched">{{getErrorEditar('celular')}}</small>
+          <ion-item>
+            <ion-label position="floating">Direccion</ion-label>
+            <ion-input formControlName="direccion"  [readonly]="!edicion"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioEdicion.get('direccion').touched">{{getErrorEditar('direccion')}}</small>
+            <ion-button color="secondary" (click)="alerta()" size="block" *ngIf="edicion" [disabled]="formularioEdicion.invalid">
+              Modificar
+            </ion-button>
+        </ion-list>
+      </form>
+
+      <ion-item>
+        <ion-label>EDITAR CLAVE DE USUARIO</ion-label>
+        <ion-checkbox slot="end" [checked]="estado" (ionChange)="cambiarestado($event)"></ion-checkbox>
+      </ion-item>
+      <ion-list *ngIf="estado">
+        <form [formGroup]="formularioClave" (ngSubmit)="modificarClave()">
+          <ion-item>
+            <ion-label position="floating">Nueva Clave</ion-label>
+            <ion-input type="password" formControlName="clave"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioClave.get('clave').touched">{{getErrorClave('clave')}}</small>
+          <ion-item>
+            <ion-label position="floating">Confirmar Clave</ion-label>
+            <ion-input type="password" formControlName="repclave"></ion-input>
+          </ion-item>
+          <small class="mensajeError" *ngIf="this.formularioClave.get('repclave').touched">{{getErrorClave('repclave')}}</small>
+          <br>
+          <ion-button type="submit" [disabled]="formularioClave.invalid" color="secondary" size="block">
+            Actualizar
+          </ion-button>
+        </form>
+      </ion-list>
+    </ion-col>
+  </ion-row>        
+</ion-grid>
+
+</ion-content>

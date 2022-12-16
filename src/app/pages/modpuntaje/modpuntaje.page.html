@@ -1,0 +1,60 @@
+<ion-header no-border>
+  <ion-toolbar>
+      <ion-icon name="close-circle" slot="start" (click)="cancelar()"></ion-icon>
+      <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img [src]="imagen" alt="no se encontro imagen" appImagen>
+          </ion-avatar>
+          <ion-label>
+            <h3>{{nombrevet}}</h3>
+            <P>Veterinaria</P>
+          </ion-label>
+          <ion-button fill="clear" slot="end" (click)="modificarRating()">Guardar</ion-button>
+      </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed="true">
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img [src]="foto" alt="no se encontro imagen" appImagen>
+          </ion-avatar>
+          <ion-label class="ion-text-wrap">
+            <h4>{{nombre}} {{ap}} {{am}}</h4>
+            <p>
+              las opiniones son publicas y contienen la informacion de tu cuenta.
+            </p>
+          </ion-label>
+        </ion-item>
+        <p class="msg">Tu puntaje actual es de  <dogi-rating-star [puntaje]="rating.puntaje" *ngIf="rating"></dogi-rating-star></p>
+        <div class="star-container">
+          <form>
+            <p class="clasificacion">
+                 <input id="radio1" type="radio" name="estrellas" value="5" (click)="estrellas($event)">
+              <label for="radio1">★</label>
+              <input id="radio2" type="radio" name="estrellas" value="4" (click)="estrellas($event)">
+              <label for="radio2">★</label>
+              <input id="radio3" type="radio" name="estrellas" value="3" (click)="estrellas($event)">
+              <label for="radio3">★</label>
+              <input id="radio4" type="radio" name="estrellas" value="2" (click)="estrellas($event)">
+              <label for="radio4">★</label>
+              <input id="radio5" type="radio" name="estrellas" value="1" (click)="estrellas($event)">
+              <label for="radio5">★</label>
+            </p>
+          </form>
+        </div>
+        
+        <ion-item>
+          <ion-textarea placeholder="Describe tu experiencia (opcional)..." [(ngModel)]="comentario"></ion-textarea>
+        </ion-item>
+          <ion-item>
+            <ion-label>Puntaje Publico</ion-label>
+            <ion-toggle *ngIf="rating" [checked]="rating.estado" (ionChange)="cambiarestadorating($event)"></ion-toggle>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,29 @@
+*{
+    font-family: 'Poppins', sans-serif;
+  }
+.abierto{
+    border: 2px solid #1dbea5;
+}
+.cerrado{
+    border: 2px solid #dfdfdf;
+}
+.imagen{
+    padding: 3px;
+}
+.filtro-content{
+    display: flex; 
+    align-items: center; 
+    align-self: auto;
+}
+.filtro-content-skeleton{
+    margin-right: 15px; 
+    width: 80%; 
+    height: 30px; 
+    border-radius: 10px;
+}
+
+.etiqueta{
+    background-color: rgb(217, 252, 217);
+    color: green;
+    padding: 2px;
+}

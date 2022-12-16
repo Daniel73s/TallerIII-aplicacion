@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/misproductos/{{codvet}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Adicionar producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" sizeSm="12" sizeMd="4" sizeLg="6">
+        <div class="contimg">
+            <img [src]="imagenDefault" appImagen alt="imagen de anuncio" *ngIf="!urlImage" appImagen>
+            <img [src]="urlImage | async" alt="producto" *ngIf="urlImage | async" appImagen>
+            <br>
+            <ion-progress-bar [value]="uploadPercent | async" *ngIf="uploadPercent"></ion-progress-bar>
+            <input type="file" class="custom-file-input" size="3000" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)">
+          </div>
+      </ion-col>
+      <ion-col size="12" sizeSm="12" sizeMd="8" sizeLg="6">
+        <form [formGroup]="formulario" (submit)="agregar()">
+          <ion-item>
+            <ion-label position="stacked">Nombre producto*</ion-label>
+            <ion-input name="nombre" formControlName="nombre"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Precio*</ion-label>
+            <ion-input name="precio" formControlName="precio" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Descripcion*</ion-label>
+            <ion-input name="descripcion" formControlName="descripcion"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Peso*</ion-label>
+            <ion-input name="peso" formControlName="peso"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Unidad de Medida*</ion-label>
+            <ion-select name="umedida" formControlName="umedida">
+              <ion-select-option value="kg">Kilogramo</ion-select-option>
+              <ion-select-option value="gr">Gramo</ion-select-option>
+              <ion-select-option value="lb">Libra</ion-select-option>
+              <ion-select-option value="oz">Onza</ion-select-option>
+              <ion-select-option value="l">Litro</ion-select-option>
+              <ion-select-option value="ml">Mililitro</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <br>
+          <ion-button type="submit" expand="full" [disabled]="formulario.invalid">
+            Guardar
+          </ion-button>
+        </form>
+        <input type="hidden" #ImageProducto [value]="urlImage | async">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

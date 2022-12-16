@@ -1,0 +1,90 @@
+*{
+  font-family: 'Poppins', sans-serif;
+}
+#map{
+    height: 60%; 
+  }
+  
+  .boton-regresar{
+    position: absolute;
+    top: 5px;
+    left: 12px;
+  
+  }
+  
+  ion-card {
+      overflow: unset !important;
+  }
+  
+  ion-card {
+      height: 200px;
+      border: none;
+  }
+  
+  
+  .chip {
+      display: inline-block;
+      padding: 0 25px;
+      height: 15px;
+      font-size: 10px;
+      line-height: 15px;
+      border-radius: 25px;
+      //
+      
+    }
+    
+    .chip img {
+      float: left;
+      margin: 0 10px 0 -25px;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+    }
+    
+    .activo{
+      border: 3px solid #1dbea5;
+    }
+    .inactivo{
+      border: 3px solid #dfdfdf;
+    }
+
+    .doctor-avatar{
+      width: 100%; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+    }
+    .doctor-avatar > ion-label > p {
+      color: gray;
+    }
+    .doctorundefined{
+      background-color: #f8cbcb;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .doctorundefined>span{
+      color: red;
+      
+    }
+
+    .content-puntaje{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items:center;
+      // border: 1px solid black;
+    }
+    .content-puntaje > h1{
+      color:white;
+      border-radius: 100%;
+      border: 1px solid  var(--ion-color-primary);
+      padding: 10px;
+      background-color:  var(--ion-color-primary);
+    }
+    .content-puntaje > p{
+      text-align: center;
+      // border: 1px solid green;
+    }
